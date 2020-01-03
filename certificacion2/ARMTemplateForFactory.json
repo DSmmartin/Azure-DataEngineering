@@ -1,0 +1,114 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "certificacion2"
+		},
+		"Certifiacion3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Certifiacion3'"
+		},
+		"Certificacion2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Certificacion2'"
+		},
+		"Certificacion2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://certificacion2.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Certifiacion3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Certifiacion3_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Certificacion2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('Certificacion2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('Certificacion2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceStorage_v1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Certifiacion3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "certificacion"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "TIMESTAMP",
+						"type": "String"
+					},
+					{
+						"name": "TAG_FARM",
+						"type": "String"
+					},
+					{
+						"name": "TAG_BUILDING",
+						"type": "String"
+					},
+					{
+						"name": "TAG_DEVICE",
+						"type": "String"
+					},
+					{
+						"name": "MEASUREMENT",
+						"type": "String"
+					},
+					{
+						"name": "QUALITY",
+						"type": "String"
+					},
+					{
+						"name": "VALUE",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Certifiacion3')]"
+			]
+		}
+	]
+}

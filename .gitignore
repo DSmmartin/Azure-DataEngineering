@@ -1,4 +1,8 @@
 # Terraform
+
+# Terraform binary
+terraform
+
 # Local .terraform directories
 **/.terraform/*
 

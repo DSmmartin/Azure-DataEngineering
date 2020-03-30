@@ -5,4 +5,3 @@ In this repository we can found several demo ETL/ELT architectures based on Azur
 ## Requirements
 
 Terraform: v0.12.24
-Anaconda:

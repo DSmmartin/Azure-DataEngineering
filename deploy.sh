@@ -1,0 +1,3 @@
+../terraform plan -var 'AZURE_SUBSCRIPTION_ID=1d1ab992-1562-4e69-b075-ecf6ae242628' -var 'AZURE_CLIENT_ID=bd7aece5-a654-461d-be6e-9fb7c5fd1480' -var 'AZURE_CLIENT_SECRET=GBSmL/iaJw5lLay9-[8ohNW8PtMTE?A@' -var 'AZURE_TENANT_ID=5c384fed-84cc-44a6-b34a-b060bf102a6e'
+
+../terraform apply -var 'AZURE_SUBSCRIPTION_ID=1d1ab992-1562-4e69-b075-ecf6ae242628' -var 'AZURE_CLIENT_ID=bd7aece5-a654-461d-be6e-9fb7c5fd1480' -var 'AZURE_CLIENT_SECRET=GBSmL/iaJw5lLay9-[8ohNW8PtMTE?A@' -var 'AZURE_TENANT_ID=5c384fed-84cc-44a6-b34a-b060bf102a6e' --auto-approve

@@ -1,9 +1,7 @@
-#salaries Details
-#Company Information
-#Fields : Date company employee Salaries
-01-02-2019  d1   f1 8000
-01-02-2019  d2   f2 9000
-01-02-2019  d1   f3 2000
-01-02-2019  d2   f4 3000
-01-02-2019  d1   f5 4000
-01-02-2019  d3   f6 5000
+Date;company;employee;Salaries
+01-02-2019;d1;f1;8000
+01-02-2019;d2;f2;9000
+01-02-2019;d1;f3;2000
+01-02-2019;d2;f4;3000
+01-02-2019;d1;f5;4000
+01-02-2019;d3;f6;5000

@@ -3,7 +3,9 @@ resource "azurerm_resource_group" "main_dp200_rg" {
   location = "West Europe"
 }
 
-data "azurerm_client_config" "current" {
+resource "random_integer" "ri" {
+  min = 10000
+  max = 99999
 }
 
 resource "azurerm_databricks_workspace" "dp200_databricks" {
@@ -26,4 +28,25 @@ resource "azurerm_storage_account" "dp200_storage" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
   is_hns_enabled           = "true"
+}
+
+resource "azurerm_cosmosdb_account" "db" {
+  name                = "dp200cdb"
+  location            = azurerm_resource_group.main_dp200_rg.location
+  resource_group_name = azurerm_resource_group.main_dp200_rg.name
+  offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
+
+  enable_automatic_failover = true
+
+  consistency_policy {
+    consistency_level       = "BoundedStaleness"
+    max_interval_in_seconds = 300
+    max_staleness_prefix    = 200000
+  }
+
+  geo_location {
+    location          = "westeurope"
+    failover_priority = 0
+  }
 }

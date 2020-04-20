@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "main_dp200_rg" {
   name     = "azure_data_engineer_dp200"
-  location = "West Europe"
+  location = "West US"
 }
 
 resource "random_integer" "ri" {
@@ -46,7 +46,7 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   geo_location {
-    location          = "westeurope"
+    location          = "westus"
     failover_priority = 0
   }
 }

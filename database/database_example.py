@@ -1,6 +1,7 @@
 import azure.cosmos.cosmos_client as cosmos_client
 import azure.cosmos.documents as documents
-from azure.cosmos import errors
+from azure.cosmos import errors, http_constants
+import family
 
 
 endpoint = 'endpoint'
@@ -33,3 +34,14 @@ except errors.HTTPFailure as e:
         container = client.ReadContainer("dbs/" + database['id'] + "/colls/" + container_definition['id'])
     else:
         raise e
+
+
+family_items_to_create = [family.get_andersen_family_item(),
+                          family.get_johnson_family_item(),
+                          family.get_smith_family_item(),
+                          family.get_wakefield_family_item()]
+
+for family_item in family_items_to_create:
+    client.UpsertItem("dbs/" + database['id'] + "/colls/" + container_definition['id'],
+              document=family_item)
+

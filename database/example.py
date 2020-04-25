@@ -2,10 +2,11 @@ import azure.cosmos.cosmos_client as cosmos_client
 import azure.cosmos.documents as documents
 from azure.cosmos import errors, http_constants
 import family
+import json
 
 
-endpoint = 'endpoint'
-key = 'key'
+endpoint = 'https://dp200cdb.documents.azure.com:443/'
+key = 'olAYQTXqZWbBYpoH8Z7zUGlzc5bpaC9amVGOjyBqjSrOKiUODctXcoMp7Gc7SQWxEv4CZMayKZBQunM8Wt2IdA=='
 
 client = cosmos_client.CosmosClient(endpoint, {'masterKey': key})
 
@@ -45,3 +46,10 @@ for family_item in family_items_to_create:
     client.UpsertItem("dbs/" + database['id'] + "/colls/" + container_definition['id'],
               document=family_item)
 
+with open('./database/example_query.sql', 'r') as query_file:
+    query_example = query_file.read()
+
+for item in client.QueryItems("dbs/" + database['id'] + "/colls/" + container_definition['id'],
+                              query_example,
+                              {'enableCrossPartitionQuery': True}):
+    print(json.dumps(item, indent=True))

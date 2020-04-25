@@ -6,7 +6,7 @@ import json
 
 
 endpoint = 'https://dp200cdb.documents.azure.com:443/'
-key = 'olAYQTXqZWbBYpoH8Z7zUGlzc5bpaC9amVGOjyBqjSrOKiUODctXcoMp7Gc7SQWxEv4CZMayKZBQunM8Wt2IdA=='
+key = 'XXXX'
 
 client = cosmos_client.CosmosClient(endpoint, {'masterKey': key})
 
